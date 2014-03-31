@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Chomo" />
+<link rel="start" href="http://www.14px.com" title="Home" />
+<title>对象为内联对象时的解决方法</title>
+<style type="text/css">
+* { margin:0; padding:0;}
+
+body{
+	
+}
+.father { font-family:simsun; font-size:12px;}
+
+.father span { display:inline-block; background:#f60; width:100px; height:100px; margin-right:-0.5em;}
+
+
+li{ list-style: none; }
+.father2{
+	margin: 10px;
+	background: #ccc;
+	font-family:'Micorsoft YaHei';
+	font-size: 40px;
+	width: 200px;
+	margin: 0 auto;
+}
+.father2 li { 
+	display:inline-block;
+	*display:inline;
+	zoom:1; 
+	background:#f60;
+	width:100px; 
+	height:100px; 
+	margin-right: -0.5em;
+	*margin-right:0;
+	
+}
+.father2 li:first-child{
+	background: #f11;
+	
+}
+</style>
+</head>
+<body>
+<div class="father">
+	<span>内容</span>
+	<span>内容</span>
+</div>
+
+<ul class="father2"> 
+	<li>内容</li>
+	<li style="background-color: green;">内容</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div class="box"> 123</div>
+	<style type="text/css"> 
+	*{
+		margin: 0;
+		padding: 0;
+		
+	}
+ 
+	</style>
+	<iframe src="a.com1.html" id="ifr" scrollbar="no" frameborder="0"></iframe>
+	<iframe src="http://s.a.com/itest/samedomain/s.a.com.html" id="ifr2" scrollbar="no" frameborder="0"></iframe>
+  
+	<script type="text/javascript"> 
+	document.domain="a.com";
+	window.onload = function(){
+		var ifr = document.getElementById('ifr');
+			ifrdoc = ifr.contentWindow.document;
+			ifrdoc.getElementById('div1').innerHTML = 'Œ“≤ÈªËªË≥¡≥¡';
+		ifr.style.height = ifr.contentWindow.document.body.offsetHeight+'px';
+		ifr.style.width = '100%';
+	
+	
+	var ifr2 = document.getElementById('ifr2');
+		ifr2doc = ifr2.contentDocument || ifr2.contentWindow.document
+		ifr2doc.getElementById('div1').innerHTML = '111111';
+		console.log(ifr2doc.body.offsetHeight);
+		ifr2.style.height = ifr2doc.body.offsetHeight+'px';
+		ifr2.style.width = '100%';
+	}
+	 
+	
+	 
+	</script>
+	
+	
+	
+	 
+	
+	
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<style type="text/css"> 
+		a{
+			color: blue;
+			font-size: 20px;
+		}
+	</style>
+	
+	<div id="ebook_id"></div>
+	<a href="##" id="btn">打开</a>
+	<script type="text/javascript"> 
+		var oBtn = document.getElementById('btn');
+		
+		oBtn.onclick=function(ev){			
+			var ev = window.event || event;			
+			ev.preventDefault();			
+			window.open('http://b.com/itest/iframe.hash/b.com.htm');			
+		} 
+	
+	</script>
+	
+</body>
+</html>

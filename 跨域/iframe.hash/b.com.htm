@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>B.com</title>
+</head>
+<body>
+
+<button id="change"> 
+	改变
+</button>
+
+<script type="text/javascript"> 
+	var oChangeBtn = document.getElementById('change');
+	
+	oChangeBtn.onclick = function(){
+		var hash = '{itemid:1111}'
+		var ifr = document.createElement('iframe');	
+		ifr.src = "http://a.com/itest/iframe.hash/a.proxy.html#"+hash;
+		ifr.style.display = 'none';
+		document.body.appendChild(ifr);
+		//window.close();
+	}
+	
+</script>
+	
+</body>
+</html>

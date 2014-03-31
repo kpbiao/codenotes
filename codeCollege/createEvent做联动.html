@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>createEvent做联动</title>
+<script language="javascript">
+<!--
+var gecko=navigator.userAgent.toLowerCase().indexOf('gecko')>0;
+function fireEvent(obj,event){
+	if(gecko){
+		var e = document.createEvent('HTMLEvents');
+		e.initEvent(event,true,true);
+		obj.dispatchEvent(e);
+		e.stopPropagation();
+		e.preventDefault();
+		e=null;
+	}else{
+		eval("if(typeof(obj.on" + event + "=='function'))obj.on" + event + ".call(obj);");
+	}
+}
+function change1(sel){
+	var sel2=document.getElementById('SEL_2');
+	sel2.options[sel.selectedIndex].selected=true;
+	fireEvent(sel2,"change");
+}
+function change2(sel){
+	var sel3=document.getElementById('SEL_3');
+	sel3.options[sel.selectedIndex].selected=true;
+	fireEvent(sel3,"change");
+}
+function change3(sel){
+	var sel4=document.getElementById('SEL_4');
+	sel4.options[sel.selectedIndex].selected=true;
+}
+//-->
+</script>
+</head>
+<body>
+<SELECT id="SEL_1" onchange="change1(this);">
+<option value="0">A1</option>
+<option value="1">A2</option>
+<option value="2">A3</option>
+</SELECT>
+<SELECT id="SEL_2" onchange="change2(this);">
+<option value="0">B1</option>
+<option value="1">B2</option>
+<option value="2">B3</option>
+</SELECT>
+<SELECT id="SEL_3" onchange="change3(this);">
+<option value="0">C1</option>
+<option value="1">C2</option>
+<option value="2">C3</option>
+</SELECT>
+<SELECT id="SEL_4">
+<option value="0">D1</option>
+<option value="1">D2</option>
+<option value="2">D3</option>
+</SELECT>
+</body>
+</html>

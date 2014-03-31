@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>posmessage SendMessage</title>
+</head>
+<body>
+	<script type="text/javascript"> 
+		top.postMessage('hellow');
+		window.onmessage = function(e){
+			var e  = e || window.event;
+			console.log(e.data)
+		}
+	</script>
+</body>
+</html>

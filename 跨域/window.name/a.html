@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	
+	
+	<script type="text/javascript">
+ 
+	
+    var state = 0, 
+    iframe = document.createElement('iframe'),
+    
+	loadfn = function() {
+
+		console.log("state"+state)
+        if (state === 1) {
+            var data = iframe.contentWindow.name;    // 读取数据			
+            window.console && window.console.log(eval("("+data+")"));   
+			
+        } else if (state === 0) {
+            state = 1;			
+            iframe.contentWindow.location = "http://a.com/itest/window.name/proxy.html"; // 设置的代理文件
+        }  
+    };
+	
+	
+	
+    iframe.src = 'http://b.com/itest/window.name/data.html';
+    
+	//iframe.src地址发生变化,重新监听onload事件	
+	if (iframe.attachEvent) {
+        iframe.attachEvent('onload', loadfn);
+    } else {
+        iframe.onload  = loadfn;
+    }
+	
+    document.body.appendChild(iframe);
+	
+	
+	/* iframe.contentWindow.document.write('');
+    iframe.contentWindow.close();
+    document.body.removeChild(iframe);
+	*/
+</script>
+</body>
+</html>

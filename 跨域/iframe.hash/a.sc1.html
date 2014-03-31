@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<title>利用iframe和location.hash</title>
+</head>
+<body>
+
+	<a href="http://b.com/itest/iframe.hash/b.sc2.html"  target="_blank" class="">打开</a>
+	
+	<div id="hashin"></div>
+	
+	<script type="text/javascript">
+		 
+		function startRequest(){
+		var ifr = document.createElement('iframe');
+			ifr.style.display = 'none';
+			ifr.src = 'http://b.com/itest/iframe.hash/b.sc2.html#paramdo';
+			document.body.appendChild(ifr);
+			
+		}
+		
+		startRequest();
+		
+		function checkHash() {
+			
+			try {
+				var data = location.hash ? location.hash.substring(1) : '';
+				document.getElementById('hashin').innerHTML = data;
+				if (console.log) {
+				
+					
+					console.log('Now the data is '+data);
+					
+					
+				}
+			} catch(e) {};
+			//document.body.removeChild(ifr);
+		}
+		
+		setInterval(checkHash, 2000);
+		</script>
+	
+</body>
+</html>

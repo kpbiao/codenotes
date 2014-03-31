@@ -1,0 +1,16 @@
+<script type="text/javascript"> 
+ 
+
+//window.top.opener.location.hash = self.location.hash;
+
+window.top.opener.document.getElementById('btn').style.color = '#888';
+window.top.opener.document.getElementById('ebook_id').innerHTML = self.location.hash.substring(1);
+window.top.close();
+
+//parent.parent.location.hash = self.location.hash.substring(1);
+
+document.onclick = function(){
+	console.log(window.opener.document.getElementById('btn')) 
+	parent.parent.document.getElementById('btn').style.color = '#888'; 
+}
+</script>
