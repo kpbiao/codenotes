@@ -1,0 +1,8 @@
+http://tympanus.net/Development/ModalWindowEffects/
+http://tympanus.net/Development/PageTransitions/
+http://tympanus.net/Development/PFold/index2.html
+http://leaverou.github.io/animatable/
+http://lab.hakim.se/ladda/
+http://lab.hakim.se/kontext/
+http://lab.hakim.se/avgrund/
+http://lab.hakim.se/meny/ 

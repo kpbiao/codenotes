@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<style type="text/css"> 
+		.line{
+		width:100px;
+		height: 31px;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;/*行数*/
+		-webkit-box-orient: vertical; /* 方向 */
+		overflow: hidden;
+		 
+		}
+	</style>
+	<p class="line">相信大家都用过text-overflow:ellipsis属性,但是它只能解决文本单行时的溢出显示省略号问题，很遗憾的是它不支持多行文本。
+webkit 有这么个属性可以解决多行文本时的溢出显示省略号问题:</p>
+	
+ 
+	<style type="text/css"> 
+	#div1{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+	</style>
+	<div style="position: fixed; height: 100px; width: 100px; background: #000;"></div>
+	
+	<div id="div1"></div>
+	
+	<style type="text/css"> 
+		body,ul{ margin: 0; padding: 0;}
+		li{ list-style: none; }
+		#list{ width: 600px; height: 420px; margin: 40px auto; }
+		#list li{ width: 58px; height: 58px; border: 1px solid #000; background: red; float: left}
+	</style>
+	<ul id="list">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li>69</li>
+	</ul>
+	
+	
+	
+	<input type="button" value="展开" id="changebtn"/>
+	<input type="button" value="重置" id="changebtn"/>
+	<script type="text/javascript"> 
+		function getOL(str){
+			var i,len,maxobj=0,maxnum=0,obj={};			
+				for(i=0,len=str.length;i<len;i++){
+						obj[str[i]]?obj[str[i]]++:obj[str[i]]=1;
+						if(maxnum<obj[str[i]]){
+								maxnum=obj[str[i]];maxobj=str[i];
+						}
+				}
+				alert(maxobj.toUpperCase()+"在数组中出现了"+maxnum+"次")
+		}	
+		//getOL('ebook.taobao.com')
+	</script>
+	<script type="text/javascript"> 
+		var oList = document.getElementById('list');
+		var oListLi = oList.getElementsByTagName('li');
+		var rows = Math.round(oList.offsetHeight / oListLi[0].offsetHeight);
+		var ceils = oListLi.length/rows; 
+		var input  = document.getElementsByTagName('input');
+		var aLiXy = setXY(oListLi,rows,ceils);
+		
+		input[0].onclick = function(){	
+		    //console.log(aLiXy[][].innerHTML="texzt"); 
+			tab(aLiXy,ceils-1,rows-1,function(){
+				this.style.background="blue";			 
+			},50,-1,-1)
+		}
+		
+		input[1].onclick = function(){
+			
+			tab(aLiXy,0,0,function(){ 
+				this.style.background="red"
+			},50,1,1)
+		}
+		
+		
+		//console.log(aLiXy)
+	 
+ 
+		for(var i = 0; i<oListLi.length; i++){
+		
+			oListLi[i].onclick= function(){					
+				tab(aLiXy,this.x,this.y,function(){					
+					this.style.background="yellow"
+				},50,-1,-1)
+			}
+			
+		}
+		
+		
+	 
+	 
+		function tab(arr,x,y,fn,iDelay,iSpeedY,iSpeedX){
+			if(!arr[y] || !arr[y][x]){
+				return;
+			}
+			if(fn){
+				
+					fn.call(arr[y][x]);
+					clearTimeout(arr[y][x].timer);
+					arr[y][x].timer = setTimeout(function(){
+						tab(arr,x,y+iSpeedY,fn,iDelay,iSpeedY,iSpeedX)
+						tab(arr,x+iSpeedX,y,fn,iDelay,iSpeedY,iSpeedX)
+					},iDelay)
+					
+				
+			}
+		}
+		
+		
+		function setXY(obj,rows,ceils){
+			var arr =  [];
+			for(var i = 0; i<rows;i++){			
+				var arr2 = [];
+				for(var j = 0; j<ceils;j++){				
+					obj[i*ceils+j].x = j;
+					obj[i*ceils+j].y = i;	
+					arr2.push(obj[i*ceils+j]);					
+				}
+				arr.push(arr2);				
+			}
+			
+			return arr; 
+		}
+		
+	 
+		function pz(obj1,obj2){
+			var L1 = obj1.offsetLeft;
+			var R1 = obj1.offsetLeft + obj1.offsetWidth;
+			var T1 = obj1.offsetTop;
+			var B1 = obj1.offsetTop + obj1.offsetHeight;
+			
+			var L2 = obj2.offsetLeft;
+			var R2 = obj2.offsetLeft + obj2.offsetWidth;
+			var T2 = obj2.offsetTop;
+			var B2 = obj2.offsetTop + obj2.offsetHeight;
+
+			//console.log(T2,B1)
+			if(R1<L2 ||  L1>R2 || T2>B1 || T1>B2){
+			
+				return 0;
+			}else{	
+				return 1;
+			} 
+			
+		}
+		
+		drag(document.getElementById('div1'));
+		
+		function drag(obj){
+			var T = 0;
+			var L = 0
+				
+			obj.onmousedown = function(ev){						
+				console.log(obj.clientWidth)
+				document.onmousemove = function(ev){					
+					var ev = ev || window.event;
+					if(pz(obj,oList)){
+						console.log('peng')
+					}
+					obj.style.left = ev.clientX - obj.clientWidth+'px';
+					obj.style.top = ev.clientY -obj.clientHeight+'px';
+				  
+				}
+				document.onmouseup = function(){
+					document.onmousemove = null;
+					 
+				}
+			}
+		}
+		
+	 
+		
+	 
+	</script>
+</body>
+</html>

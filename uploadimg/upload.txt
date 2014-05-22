@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8" />
+	<title></title>
+		<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" type="text/css" href="assets/css/m_reset.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/uploadimg.css"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="lib/socket.io.js" type="text/javascript"></script>
+    <script src="lib/jquery.query.min.js" type="text/javascript"></script>
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js" charset="utf-8" type="text/javascript"></script>
+	<style type="text/css"> 
+	/*reset css*/
+body{
+line-height:1.4;
+color:#333;
+font-family: 'Microsoft YaHei',simsun,Arial;
+font-size: 12px;
+background:white;
+}
+input,textarea,select,dd,dt,dl{ 
+font-family:arial;
+font-family:inherit;
+padding: 0;
+margin: 0;
+border: none;
+}
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,form{
+margin:0;
+}
+h4,h5,h6{
+font-size:1em;
+}
+ul,ol{
+padding-left:0; 
+list-style-type:none;
+}  
+img{border:0;}
+a,button,input{ 
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+-webkit-tap-highlight-color: transparent;
+text-decoration: none;	
+}
+table {    
+	border-collapse: separate;    
+	border-spacing: 0;
+}   
+
+ 
+*, *:focus, *:active, *:hover{
+-webkit-touch-callout: none;
+-webkit-text-size-adjust: none;
+/*-webkit-user-select: none;*/
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+-webkit-tap-highlight-color: transparent;
+text-decoration: none; 
+outline: rgba(0, 0, 0, 0);
+} 
+
+.page {
+padding: 4% 3.125%;
+}
+.logo {
+width: 100%;
+text-align: center;
+display: block;
+}
+.tit {
+border-bottom: 2px solid #efefef;
+text-align: center;
+height: 34px;
+line-height: 34px;
+}
+.tit span {
+border-bottom: 2px solid #f0d8b0;
+height: 34px;
+display: inline-block;
+word-spacing: 5px;
+font-weight: 400;
+}
+
+.uplpad_btn {
+background-color: #f8b86d;
+border-radius: 5px;
+height: 54px;
+line-height: 54px;
+width: 100%;
+font-size: 2.1em;
+color: #FFF;
+display: block;
+text-align: center;
+margin-top: 1.5em;
+}
+.bggray {
+background-color: #c9c9c9;
+cursor: default
+}
+.upload_tips {
+font-size: 12px;
+color: #959595;
+margin: 1em 0;
+text-align: center;
+}
+.upload_way_box {
+width: 100%;
+overflow: hidden;
+height: 52px;
+box-sizing: border-box;
+line-height: 52px;
+border: 1px solid #e8e8e8
+}
+.upload_way_box .btn {
+width: 50%;
+box-sizing: border-box;
+overflow: hidden;
+text-align: center;
+border-left: 1px solid #e8e8e8;
+color: #313131;
+font-size: 16px;
+float: left;
+}
+.uplpad_img_list {
+text-align: center;
+font-size: 0;
+margin: 46px auto 20px;
+height: 130px;
+}
+.uplpad_img_list span {
+box-sizing: border-box;
+width: 60px;
+margin: 0 0.5%;
+overflow: hidden;
+display: inline-block;
+}
+.uplpad_img_list span img {
+width: 88px;
+height: 88px;
+}
+.img_delbtn {
+border: 1px solid #eeeeee;
+border-radius: 50%;
+width: 30px;
+height: 30px;
+display: inline-block;
+margin-top: 10px;
+background: url(../images/upload_del.png) center no-repeat;
+}
+.warn {
+text-align: center;
+font-size: 15px;
+}
+
+.upload_status {
+padding-top: 70px;
+margin: 46px auto;
+background-position: center top;
+background-repeat: no-repeat;
+}
+.upload_status p {
+text-align: center;
+font-size: 12px;
+color: #b5b5b5;
+}
+.upload_status .status_desc {
+font-size: 1.5em;
+margin: 0.5em;
+color: #626262
+}
+
+.upload_status_success {
+background-image: url(../images/uppadsuccess_.png);
+}
+	</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+    <!--socket 通讯-->
+<script type="text/javascript">
+    var socket;
+    var move = false;
+    var startX = 0;
+    var start_MR = 0;
+    var successOPen = false;
+    $(document).ready(function () {
+        successOPen = true;
+
+        var roomId = $.query.get('rId');
+        if (roomId != '') {
+
+            socket = io.connect('115.28.20.152', { port: 8002 });
+            socket.on('connect', function () {
+                socket.emit('joinRoom', roomId, function (result) {
+                    socket.emit('sendOrder', successOPen, function (result) {
+                        //console.log('success');
+                    });
+                });
+            });
+            socket.on('connecting', function () {
+                //console.log('connecting...');
+            });
+            socket.on('reconnect', function () {
+                //console.log('reconnect...');
+            });
+            socket.on('reconnecting', function () {
+                //console.log('reconnecting...');
+            });
+            socket.on('connect_failed', function () {
+                //console.log('connect failed');
+            });
+            socket.on('error', function () {
+                //console.log('connect error');
+            });
+            socket.on('disconnect', function () {
+                //console.log('disconnect');
+            });
+        }
+
+        //        $("#uploadimg").bind("click", function () {
+        //            var img = $("#imgone").attr("src");
+        //            var data = {};
+        //            if (img != "")
+        //                data.deg = img;
+        //            socket.emit('sendOrder', data, function (result) {
+        //            });
+        //            var deg = $("#deg").val();
+        //            var fx = $("#fx").val();
+        //            var data = {};
+        //            if (deg != "" && fx != "") {
+        //                data.deg = deg;
+        //                data.fx = fx;
+        //                socket.emit('sendOrder', data, function (result) {
+        //                });
+        //            } else {
+        //                alert("数据不能为空");
+        //            }
+        //})
+
+
+
+        var S = KISSY;
+        if (S.Config.debug) {
+            var srcPath = "";
+            S.config({
+                packages: [
+                        {
+                            name: "gallery",
+                            path: srcPath,
+                            charset: "utf-8"
+                        }
+                    ]
+            });
+        }
+        S.use('gallery/uploader/1.5/index,gallery/uploader/1.5/themes/grayUploader/index,gallery/uploader/1.5/themes/grayUploader/style.css', function (S, Uploader, GrayUploader) {
+            //上传组件插件
+            var plugins = 'gallery/uploader/1.5/plugins/auth/auth,' +
+                'gallery/uploader/1.5/plugins/urlsInput/urlsInput,' +
+                'gallery/uploader/1.5/plugins/proBars/proBars,' +
+                'gallery/uploader/1.5/plugins/filedrop/filedrop,' +
+                'gallery/uploader/1.5/plugins/preview/preview,' +
+                'gallery/uploader/1.5/plugins/imageZoom/imageZoom';
+
+            S.use(plugins, function (S, Auth, UrlsInput, ProBars, Filedrop, Preview, ImageZoom) {
+                var uploader = new Uploader('#J_UploaderBtn', {
+                    //处理上传的服务器端脚本路径
+                    action: "data/uploadfile.ashx"
+                });
+                //使用主题
+                uploader.theme(new GrayUploader({ queueTarget: '#J_UploaderQueue' }));
+                //验证插件
+                uploader.plug(new Auth({
+                    //最多上传个数
+                    max: 5,
+                    //图片最大允许大小
+                    maxSize: 5000
+                }))
+                //url保存插件
+                    .plug(new UrlsInput({ target: '#J_Urls' }))
+                //进度条集合
+                    .plug(new ProBars())
+                //拖拽上传
+                    .plug(new Filedrop())
+                //图片预览
+                    .plug(new Preview())
+                    .plug(new ImageZoom())
+
+                //上传成功执行操作
+                uploader.on('success', function (ev) {
+                    //服务器端返回的结果集   result.url 获取返回的链接
+                    var result = ev.result;
+                    /* 编辑图片*/
+                    var uploadimgD = $('#J_UploaderBtn');
+                    var sourceImg = result.url;
+
+                    var data = {};
+                    if (sourceImg != "") {
+                        data.deg = sourceImg;
+                        data.fx = '1';
+                    }
+                    socket.emit('sendOrder', data, function (result) { });
+
+                });
+                //删除成功执行操作
+                uploader.on('remove', function (ev) {
+                    //获取删除的图片
+                    var removeImg = $(ev.file.target.html()).find("img").attr("data-original-url");
+                    var data = {};
+                    if (removeImg != "") {
+                        data.deg = removeImg;
+                        data.fx = '0';
+                    }
+                    socket.emit('sendOrder', data, function (result) { });
+                });
+
+            });
+        });
+    });
+</script>
+<body>
+
+		
+		<div class="page">
+			<a href="" class="logo"><img src="assets/images/mlogo.png"/></a>
+			<h2 class="tit">
+				<span>手&ensp;机&ensp;传&ensp;图</span>
+			</h2>
+			
+		 
+			<div class="uploadbox">
+				
+				<div class="upload_status upload_status_success">
+					
+					<p class="status_desc">上传成功</p>
+					<p>您上传的照片已在电脑上显示</p>
+					
+				</div>
+			    <div class="uplpad_img_list">
+				        <input type="file" class="g-u" id="J_UploaderBtn" value="选择凭证图片" name="Filedata"  accept="image/*"/>
+                        <input type="hidden" id="J_Urls" name="refundImageUrls"/>
+                </div>
+				<div class="uplpad_img_list" id="J_UploaderQueue">
+
+				</div>
+
+				<!--<p class="upload_tips warn">请选择下面任意方式添加不超过5张照片。</p>
+				<div class="upload_way_box">
+					<a href="javascript:;" class="btn">拍照</a>
+					<a href="javascript:;" class="btn">选取现有现有照片</a>
+				</div>-->
+				
+				<a href="javascript:;" class="uplpad_btn gray" id="uploadimg">上传</a>
+			</div>
+		</div>
+         
+	</body>
+</html>

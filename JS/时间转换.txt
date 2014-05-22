@@ -1,0 +1,30 @@
+    /*
+     * 根据type形式转换时间点格式
+     * @paramme type [string] yyyy/mm/dd HH:MM
+     * */
+    function timeFormat(ms, type){
+        var newDate = new Date(Number(ms));
+        //将时间点微秒转化为"yyyy-mm-dd' 'HH:MM:ss"的形式,
+        var re = newDate.toTimeString().slice(0, 8).split(':'),
+                reDate = newDate.getDate() + '/' + (newDate.getMonth()+1) + '/' + newDate.getFullYear();
+        switch(type){
+            case 'yyyy/mm/dd HH:MM':
+                reDate = newDate.getFullYear() + '/' + addZero(newDate.getMonth()+1) + '/' + addZero(newDate.getDate()) + ' ' + newDate.toTimeString().slice(0, 5);
+                break;
+        }
+        return {
+            h: re[0],
+            m: re[1],
+            s: re[2],
+            date: reDate
+        }
+    }
+
+    function addZero(){
+        var n = Number(n);
+        if(isNaN(n)) return;
+        if (n < 10) {
+            n = '0' + n;
+        }
+        return n;
+    }

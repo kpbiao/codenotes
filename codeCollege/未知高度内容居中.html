@@ -51,5 +51,38 @@
 	</div>
 	
 	
+	<style>
+.outer {
+  display:table;
+  width:100px; 
+  overflow:hidden; 
+  background: #eee; 
+  height: 300px;
+  *position:relative;
+  
+}
+.middle {
+	display:table-cell;
+	vertical-align:middle;
+	margin-left 10px;
+    *position: absolute; 
+	*top: 50%;
+}
+
+.inner{
+	*position: relative; 
+	*top:-50%
+} 
+</style> 
+ 
+<div class="outer">
+  <div class="middle">
+		<div class="inner">
+		  把你要居中的文本放在这里把你要居中的文本放在这里
+		  这是第二行
+		  ...
+		</div>
+	  </div>
+</div>
 </body>
 </html>

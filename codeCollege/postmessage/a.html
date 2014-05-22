@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src="pm.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+	var msg = new Message(iframe.contentWindow);
+msg.on(function(data){
+    alert(data);
+    //处理接收到的data
+});
+	</script>
+</body>
+</html>

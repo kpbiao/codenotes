@@ -1,0 +1,1 @@
+function type(val) { return ({}).toString.call(val).slice(8, -1); } 

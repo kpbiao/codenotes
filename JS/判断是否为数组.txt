@@ -1,0 +1,9 @@
+Haspmap Array String Number Boolean Null
+
+typeof 
+o instanceof Array --》检查是不是数组的实例
+
+判断是否是数组
+function isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}

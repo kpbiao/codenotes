@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    var socket;
+    var move = false;
+    var startX = 0;
+    var start_MR = 0;
+    var successOPen = false;
+    $(document).ready(function () {
+        $("#mobileUploadImg").click(function () {
+            successOPen = true;
+            var roomId = '';
+            roomId = Date.parse(new Date()) + Math.random();
+            showCodeImg('http://192.168.8.101:801/uploadimg.html?rId=' + roomId, 'twocode');
+            //var roomId = $.query.get('rId'); //生成的id
+            alert(roomId);
+            if (roomId != '') {
+                socket = io.connect('115.28.20.152', { port: 8002 });
+                socket.on('connect', function () {
+                    socket.emit('joinRoom', roomId, function (result) {
+                        socket.emit('sendOrder', successOPen, function (result) {
+                            //console.log('success');
+                        });
+                    });
+                });
+                socket.on('connecting', function () {
+                    //console.log('connecting...');
+                });
+                socket.on('reconnect', function () {
+                    //console.log('reconnect...');
+                });
+                socket.on('reconnecting', function () {
+                    //console.log('reconnecting...');
+                });
+                socket.on('connect_failed', function () {
+                    //console.log('connect failed');
+                });
+                socket.on('error', function () {
+                    //console.log('connect error');
+                });
+                socket.on('disconnect', function () {
+                    //console.log('disconnect');
+                });
+
+                // 接受命令（自定义data格式）
+                socket.on('getOrder', function (data) {
+                    if (data) {
+                        if (data.fx == "1") {
+                            var html = '<li><img src="' + data.deg + '" alt="" /><a href="" class="del">删除</a></li>';
+                            $("#J_UploaderQueue").append(html);
+                        }
+                        else if (data.fx == "0") {
+                            var img = data.deg;
+                            //alert($("#J_UploaderQueue").html());
+                            $("#J_UploaderQueue > li > img[src='" + img + "']").parent().remove();
+                        }
+                    }
+                });
+
+            }
+        });
+
+    });
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+	#box{
+		width: 100px;
+		height: 100px;
+		background: #000;
+		position:absolute;
+		left: 800px;
+		top: 400px;
+	}
+	</style>
+	<div id="box">
+	
+	</div>
+	
+	<script type="text/javascript">
+		//根据角度算弧度
+		var hudu = Math.sin(30*Math.PI/180);
+		
+		
+		var oBox = document.getElementById('box');
+		 var r = 400,
+			 x = 800,
+			 y = 400,
+			 iDu = 0;
+			 
+		var timer = setInterval(function(){
+		    iDu++;
+			
+			if(iDu++ >=360){
+				clearInterval(timer)
+			}
+			var y1 = Math.sin(iDu*Math.PI/180)*r;
+			var x1 = Math.cos(iDu*Math.PI/180)*r;
+			
+			oBox.style.top = y +y1+'px';
+			oBox.style.left = x +x1+'px';
+		},30)
+		
+		
+		//Math.sin( num*Math.PI)
+	</script>
+	
+</body>
+</html>

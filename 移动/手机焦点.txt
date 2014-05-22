@@ -1,0 +1,110 @@
+ <script> 
+		(function(){ 
+			var el_focus_box = document.querySelector('.focus_box'),
+				el_log = document.querySelector('.log'),
+				el_index_box = document.querySelector('.index_box'),
+				el_focus_con = document.getElementById('J_focus_con'),
+				el_focus_nav = document.getElementById('J_focus_nav'),
+				el_focus_navli =   el_focus_nav.getElementsByTagName('li'),
+				start_pageX = 0,
+				start_pageY = 0,
+				end_pageX = 0,
+				end_pageY = 0,
+				temp_diff_pageX = 0,				
+				timer = null,
+				diff_pageX = 100,
+				_index = 0,
+				prevElement = el_focus_navli[0];
+	 
+			el_focus_box.addEventListener('touchstart',function(ev){				
+				var touches = ev.touches;				
+				start_pageX = touches[0].pageX;
+				start_pageY = touches[0].pageY;	 
+				clearTimeout(timer);
+			},false)
+			
+			el_focus_box.addEventListener('touchmove',function(ev){
+				ev.preventDefault();
+				ev.stopPropagation();
+				var touches = ev.targetTouches;
+				end_pageX = touches[0].pageX;
+				end_pageY = touches[0].pageY; 
+			},false)
+			
+			el_focus_box.addEventListener('touchend',function(ev){
+				if (end_pageX === 0) { 
+					return; 
+				}
+				temp_diff_pageX = end_pageX - start_pageX;				
+				if(Math.abs(temp_diff_pageX) > diff_pageX){			
+					if (el_focus_con) {	 
+						if (temp_diff_pageX > 0 ) {
+							//向右滑动 							
+							_index=(_index+3)%4; 						
+						    
+						}
+						else if (temp_diff_pageX < 0) {					
+							//向左滑动   							
+							_index=(_index+1)%4; 							
+						}
+						 
+						prevCurentClass(_index);
+						var _left=(-480*_index)+'px'; 							
+						el_focus_con.style.webkitTransform = 'translate('+_left+',0)';  							
+					}
+				}
+				auto();
+			},false)
+			
+			 function prevCurentClass(index){
+					//同步分页索引
+						if (prevElement) {
+							prevElement.className = '';
+						}
+						el_focus_navli[index].className = 'cur';
+						prevElement = el_focus_navli[index];
+			 }
+			 
+			 function auto(){
+				timer = setTimeout(function(){					  						
+					_index = (_index+1)%4;
+					var _left=(-480*_index)+'px'; 							
+					el_focus_con.style.webkitTransform = 'translate('+_left+',0)'; 			   
+					prevCurentClass(_index);				
+					timer=setTimeout(arguments.callee,5000);
+				 },5000)
+			} 
+			
+			auto();
+		})();
+		 
+	  window.addEventListener('load',lazyload('con'),false);	
+	var TH = TH || {}; 
+	TH.hasClass = function(element, name){
+		var re = new RegExp('(^| )' + name + '( |$)');
+		return re.test(element.className);
+	};
+	TH.addClass = function(element, name){
+		if (!TH.hasClass(element, name)){
+			element.className += ' ' + name;
+		}
+	};
+	TH.removeClass = function(element, name){
+		var re = new RegExp('(^| )' + name + '( |$)');
+		element.className = element.className.replace(re, ' ').replace(/^\s+|\s+$/g, "");
+	};   
+	 function touchStyle(){
+		/*var ele_touchw = document.getElementsByTagName('a'); */
+		var ele_touchw = document.getElementsByClassName('jtouch'); 
+		
+              		
+		for(var i=0; i<ele_touchw.length; i++){ 
+			ele_touchw[i].addEventListener('touchstart',function(){ 
+				TH.addClass(this,'J_touch');
+			})
+			ele_touchw[i].addEventListener('touchend',function(){ 
+				TH.removeClass(this,'J_touch');
+			}) 
+		}
+	 } 
+	touchStyle();	 

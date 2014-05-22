@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lucky!</title>
+<meta charset="utf-8">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<button id="go" data-text-start="按空格开始" data-text-stop="按空格停止" data-action="start"></button>
+<div id="container">
+  <ul id="balls">
+  </ul>
+  <ul id="lucky-balls">
+  </ul>
+</div>
+
+
+<script src="sea.js"></script>
+<script>
+  seajs.use(['./lucky', './data'], function(Lucky, data) {
+    Lucky.init(data)
+  })
+</script>
+
+</body>
+</html>

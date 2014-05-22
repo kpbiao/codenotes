@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="i"/>
+		<input type="submit"/>
+	</form>
+	<div id="btn">BUTTON</div>
+	<script type="text/javascript"> 
+		var a1  = [1,2,3,4],
+			b1 = a1;
+		b1.push('b1');
+		console.log(a1,b1)
+		
+		var a = [1,2,3,4],
+			b = {name: 'jack', age : 40},
+			c =[], d = {};
+		
+		for( var i in a){
+			c[i] = a[i]
+		}
+		
+		for(var i in b){
+			d[i] = b[i]
+		}
+		
+		function Animal(name){
+			this.name = name;
+			this.type = 'animal'
+		}
+		Animal.prototype.say = function(){
+			alert('I am '+this.name)
+		}
+		function Bird(name){
+			Animal.call(this,name);
+		}	
+		Bird.prototype = new Animal();
+		Bird.prototype.constructor = Bird;
+		Bird.prototype.fly = function(){
+			alert('fly')
+		}
+		var yw = new Bird('yingwu');
+		//inhrite
+		var dog = new Animal('dog');
+		
+		//按 构造函数+原型 方式写类，即属性挂在this上，方法挂在prototype上。	
+		/**
+		 * @param {Function} subCls 子类
+		 * @param {Function} superCls 父类
+		 */
+		function extend(subCls,superCls) {  
+			//暂存子类原型
+			var sbp = subCls.prototype;
+			//重写子类原型--原型继承
+			subCls.prototype = new superCls();
+			//重写后一定要将constructor指回subCls
+			subCls.prototype.constructor = subCls;
+			//还原子类原型
+			for(var atr in sbp) {
+				subCls.prototype[atr] = sbp[atr];
+			}
+			//暂存父类  
+			subCls.supr = superCls;
+		}
+		
+		
+		function Dog(name){
+			this.constructor.superclass.constructor.apply(this, arguments);
+			this.type = 'Dog';			
+		}
+		extend(Animal,Dog);
+		Dog.prototype.run = function(){
+			alert(this.type+'can run');
+		}
+		
+		var xh = new Dog('xiaohuang');
+		xh.run();
+		
+		
+		
+		Array.prototype.each = function(fun){
+			for(var i = 0, len=this.length; i<len; i++){
+				fun(this[i],i)
+			}			
+		}
+		
+		Array.prototype.clone = function(){
+			var arr = [];
+			this.each(function(v,k){
+				arr[k] = v;
+			})
+			return arr;
+		}
+		
+		Array.prototype.map = function(fun){
+			var arr = [];
+			this.each(function(v,k){
+				arr[k] = fun(v,k);
+			})
+			return arr;
+		}
+		
+		Array.prototype.Delete = function(a){
+			var arr = this.clone();
+			for(var i = arr.length,n = 0; i<n; i++){
+				if(arr[i] == a){
+					arr.splice(i,1);
+				}
+			}
+			return arr;
+		}
+		
+		var arra = [1,2,3,5,6];
+		console.log(arra.map(function(v){
+			return v*10
+		}))
+		
+		
+		
+		
+		c.push('5');
+		d.sex = 'male';
+		console.log(a,b,c,d)
+		
+		function  extend(r, s, px, sx) {
+            if ('@DEBUG@') {
+                if (!r) {
+                    logger.error('extend r is null');
+                }
+                if (!s) {
+                    logger.error('extend s is null');
+                }
+                if (!s || !r) {
+                    return r;
+                }
+            }
+
+            var sp = s.prototype,
+                rp;
+
+            // in case parent does not set constructor
+            // eg: parent.prototype={};
+            sp.constructor = s;
+
+            // add prototype chain
+            rp = createObject(sp, r);
+            r.prototype = S.mix(rp, r.prototype);
+            r.superclass = sp;
+
+            // add prototype overrides
+            if (px) {
+                S.mix(rp, px);
+            }
+
+            // add object overrides
+            if (sx) {
+                S.mix(r, sx);
+            }
+
+            return r;
+        }
+
+		
+		
+		function extend(superClass, subClass){
+			var F =  new Function();
+			subClass.prototype.constructor = subClass;
+		}
+	
+	
+		var input= document.getElementById('i');
+			
+		function valueChange(input, callback){
+		
+			if ("onpropertychange" in input) { 
+				input.onpropertychange = function(){
+					if (window.event.propertyName == "value"){
+						callback.call(this, window.event)
+					}
+				}
+			} else {				
+				input.addEventListener("input", callback, false);
+			}
+			
+		}
+		
+		valueChange(input,function(){
+			if(input.value.length >4){
+				alert(1);
+			}			
+		})
+		
+	 
+	</script>
+	
+</body>
+</html>

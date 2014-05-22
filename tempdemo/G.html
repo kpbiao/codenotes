@@ -1,0 +1,631 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<script src="http://a.tbcdn.cn/s/kissy/1.2.0/kissy-min.js"></script>
+
+<body><style type="text/css">
+ .game-floor .game-box,.game-floor .award-box,.tail{
+      background-image:url(http://gtms03.alicdn.com/tps/i3/T1oY9BFfXiXXcgFvwH-965-800.png);
+      background-repeat:no-repeat;
+    }
+    /* 游戏楼层 */
+    .game-floor{width:965px;padding-bottom:5px;}
+    .game-floor .mark{width:200px;height:292px;float:left;margin-right:15px;position:relative;background-image:url(http://gtms04.alicdn.com/tps/i4/T1YM11FkpcXXX6xq24-200-292.png);background-repeat: no-repeat;}
+    .game-floor .mark-day{background-position: 0 0;}
+    .game-floor .mark-night{background-position: 0 0;}
+    .game-floor .mark .anim-pic{position:absolute;right:11px;top:23px;}
+    .game-floor .mark .ma-pic{width:157px;height:157px;display:block;position:absolute;left:22px;top:113px;}
+    .game-floor .mark .ma-pic img{width:157px;height:157px;}
+    .game-floor .game-box{width:535px;height:292px;float:left;margin-right:15px;background-position:0 -134px;}
+    .game-floor .award-box{width:200px;height:292px;float:left;background-position:-764px -448px;}
+    .game-floor .award-box .scroll-award{
+        width: 160px;
+        height: 160px;
+        overflow: hidden;
+        margin-left: 20px;
+        margin-top: 112px;
+    }
+    .game-floor .award-box .scroll-award .news-items{line-height:20px;font-size:10px;}
+    .game-floor .award-box .scroll-award .news-items li{width:160px;text-align:center;}
+    
+    .used-floor{width:960px;min-height:100px;background:url(http://gtms01.alicdn.com/tps/i1/T1STC2FllgXXcg2afn-965-95.png) no-repeat #00679d;}
+    
+    .tail{width:965px;height:124px;background-position:0 0;}
+
+
+	
+
+    .content{width:100%!important;}
+    .game-wrapper{width:482px;height:292px;position:relative;margin:0 auto;background:url(http://gtms01.alicdn.com/tps/i1/T1ZQS0FiNXXXa_8evU-482-292.png) no-repeat #cff1ff;}
+    .game-wrapper .get-award{position:absolute;display:block;width:65px;height:65px;cursor:pointer;top:10px;left:18px;}
+    .game-wrapper .count{position:absolute;width:54px;height:38px;top:85px;left:23px;}
+    .game-wrapper .again,
+    .game-wrapper .share{
+        position:absolute;width:75px;height:80px;bottom:10px;
+        cursor:pointer;
+    }
+
+  .game-wrapper .game-main .before-game,
+  .game-wrapper .game-main .loose-game,
+  .game-wrapper .game-main .win-game,
+  .during-game .q-answer li,
+  .during-game .q-words li{
+    background-image:url(http://gtms04.alicdn.com/tps/i4/T1sN4_XEVgXXXPYDzX-295-1000.png);
+    background-repeat:no-repeat;
+  }
+  
+  .game-wrapper .again{
+    left:15px;background:url(http://gtms02.alicdn.com/tps/i2/T1_9PjFlhgXXaInSfn-75-80.png) no-repeat;
+    /*
+    _FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://gtms02.alicdn.com/tps/i2/T1_9PjFlhgXXaInSfn-75-80.png');
+    _background:none;
+    */
+  }
+  .game-wrapper .share{
+    right:15px;background:url(http://gtms04.alicdn.com/tps/i4/T19aDkFaxgXXaInSfn-75-80.png) no-repeat;
+    /*
+    _FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://gtms04.alicdn.com/tps/i4/T19aDkFaxgXXaInSfn-75-80.png');
+    _background:none;
+    */
+  }
+  .game-wrapper .again:hover{
+    background:url(http://gtms03.alicdn.com/tps/i3/T1.OrlFjXaXXaInSfn-75-80.png) no-repeat;
+    /*
+    _FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://gtms03.alicdn.com/tps/i3/T1.OrlFjXaXXaInSfn-75-80.png');
+    _background:none;
+    */
+  }
+  .game-wrapper .share:hover{
+    background:url(http://gtms01.alicdn.com/tps/i1/T13W6sFh4cXXaInSfn-75-80.png) no-repeat;
+    /*
+    _FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://gtms01.alicdn.com/tps/i1/T13W6sFh4cXXaInSfn-75-80.png');
+    _background:none;
+    */
+  }
+    /*
+    .game-wrapper .again-d{background:url(http://gtms03.alicdn.com/tps/i3/T1udyNFolfXXcr0RHm-72-75.png) no-repeat;}
+    .game-wrapper .share-d{background:url(http://gtms04.alicdn.com/tps/i4/T1PbO3Fm8bXXcr0RHm-72-75.png) no-repeat;}
+    */
+    .game-wrapper .game-main{width:295px;height:292px;margin-left:95px;}
+    .game-wrapper .game-main .before-game,
+    .game-wrapper .game-main .during-game,
+    .game-wrapper .game-main .game-loose,
+    .game-wrapper .game-main .game-win{
+		background-image: url(http://gtms02.alicdn.com/tps/i2/T1ARLjFlXdXXXPYDzX-295-1000.png);
+        width:295px;height:292px;display:none;
+    }
+    .game-wrapper .game-main .before-game{background-position:0 0;position:relative;_cursor:pointer;}
+    .game-wrapper .game-main .during-game{background:url(http://gtms04.alicdn.com/tps/i4/T1q3uKFhdfXXXvljZA-295-292.png) no-repeat;}
+    .game-wrapper .game-main .game-loose{background-position:0 -296px;}
+    .game-wrapper .game-main .game-win{background-position:0 -595px;}
+    .game-wrapper .game-main .before-game .start-btn{
+        display:block;cursor:pointer;
+        width:174px;height:68px;
+        background:url(http://gtms01.alicdn.com/tps/i1/T1D.YfFm0fXXc8gLTi-174-68.gif) no-repeat;
+        position: absolute;
+        top: 121px;
+        left: 64px;
+        _display:none;
+    }
+  /*
+    .game-wrapper .game-main .before-game{
+        cursor:pointer;
+    }
+  */
+    .during-game .q-body{
+        width:150px;height:175px;
+        padding: 10px 70px;
+    }
+    .during-game .q-body .q-title{
+        width:150px;height:25px;
+    }
+    .during-game .q-body .q-pic{
+        width:150px;height:150px;
+    }
+    .during-game .q-answer{
+        margin: 0 auto;
+    }
+    .during-game .q-answer li{
+        width:25px;height:25px;
+        float: left;
+        margin-right: 5px;
+        cursor:pointer;
+        text-align:center;
+        line-height:24px;
+        color:#fff;
+        font-family:"Microsoft Yahei";
+        background-position: -65px -897px;
+    }
+    .during-game .q-words{
+        width:240px;
+        padding:10px 30px;
+		*width: 210px;
+    }
+    .during-game .q-words li{
+        width:23px;height:23px;
+        float: left;
+        margin-right: 1px;
+        margin-bottom: 2px;
+        cursor:pointer;
+        text-align:center;
+        line-height:22px;
+        font-weight: bold;
+        font-family: "Microsoft YaHei";
+        background-position:-2px -897px;
+    }
+
+        /*
+    add by lushi
+    */
+		
+</style>
+	<div class="game-wrapper">
+              
+                <a class="get-award" target="_blank" href="http://bbs.taobao.com/catalog/thread/15198010-264326732.htm?spm=1.6843589.a2147ms.1"></a>
+              
+                <i class="count" id="J_count" style="background-image: url(http://gtms02.alicdn.com/tps/i2/T1XFeWFbxgXXa32jji-54-38.png);"></i>
+                <a class="again"></a>
+                <a id="J_share" class="share"></a>
+                <div class="game-main">
+                    <div class="before-game" style="display: block;">
+                      <a class="start-btn J_start"></a>
+                  	</div>
+                    <div class="during-game" style="display: none;">
+                        <div class="q-body">
+                            <div class="q-title"></div>
+                            <div class="q-pic"></div>
+                        </div>
+                        <ul class="q-answer clearfix">
+
+                        </ul>
+                        <ul class="q-words clearfix">
+                            <li class="words" index="0"></li><li class="words" index="1"></li><li class="words" index="2"></li><li class="words" index="3"></li>
+                            <li class="words" index="4"></li><li class="words" index="5"></li><li class="words" index="6"></li><li class="words" index="7"></li>
+                            <li class="words" index="8"></li><li class="words" index="9"></li><li class="words" index="10"></li><li class="words" index="11"></li>
+                            <li class="words" index="12"></li><li class="words" index="13"></li><li class="words" index="14"></li><li class="words" index="15"></li>
+                            <li class="words" index="16"></li><li class="words" index="17"></li><li class="words" index="18"></li><li class="words" index="19"></li>
+                        </ul>
+                    </div>
+                    <div class="game-loose" style="display: none;"></div>
+                    <div class="game-win" style="display: none;"></div>
+                </div>
+            </div>
+	
+
+	<script type="text/javascript">
+	KISSY.add("game",function(S,User){
+    var K = S.all,E = S.Event;
+    var opCount = 0,clickCount = 0;
+    var questions = [],wordGroup = null,guessField = [];
+  // 存放题目进度的图片
+    var numArr = ["http://gtms02.alicdn.com/tps/i2/T1XFeWFbxgXXa32jji-54-38.png",
+                  "http://gtms03.alicdn.com/tps/i3/T1NxuYFbheXXa32jji-54-38.png",
+                  "http://gtms04.alicdn.com/tps/i4/T12DqVFbVeXXa32jji-54-38.png",
+                  "http://gtms01.alicdn.com/tps/i1/T1M6SZFjdbXXa32jji-54-38.png",
+                  "http://gtms02.alicdn.com/tps/i2/T1jGGYFblfXXa32jji-54-38.png",
+                  "http://gtms03.alicdn.com/tps/i3/T1lniWFbRfXXa32jji-54-38.png",
+                  "http://gtms04.alicdn.com/tps/i4/T1ieaWFklbXXa32jji-54-38.png",
+                  "http://gtms01.alicdn.com/tps/i1/T1fb5ZFbhdXXa32jji-54-38.png",
+                  "http://gtms02.alicdn.com/tps/i2/T1XGW1Fk0XXXa32jji-54-38.png",
+                  "http://gtms03.alicdn.com/tps/i3/T1dcG0FiBaXXa32jji-54-38.png",
+                  "http://gtms04.alicdn.com/tps/i4/T1u_uYFh4dXXa32jji-54-38.png"];
+  // 存放题目类型的图片
+    var titleArr = ["http://gtms03.alicdn.com/tps/i3/T1rU14FhJXXXX83Znc-150-25.png",
+                    "http://gtms04.alicdn.com/tps/i4/T1DNK4FopXXXX83Znc-150-25.png",
+                    "http://gtms02.alicdn.com/tps/i2/T1qQy3FhpbXXX83Znc-150-25.png"];
+    var Game = {
+        init : function(){
+            this.initGame();
+            this.eventHandler();
+            wordGroup = data.words.split(' ');
+        }
+    };
+  
+  //window._game = Game;
+  
+  	var isCanClick = true;
+  
+    S.mix(Game,{
+      // 初始化游戏（参数、题目、状态等）
+        initGame : function(){
+            var self = this;
+            var tmpArr = [],isExist = true;
+            opCount = 0;
+            clickCount = 0;
+            self.switchNumber(opCount);
+            K('.during-game').hide();
+            K('.game-win').hide();
+            K('.game-loose').hide();
+            K('.before-game').show();
+            questions = [];
+            guessField = [];
+            self.switchNumber(opCount);
+
+            // 初始化题目，随机从30道题目抽取10道，不重复
+			while(tmpArr.length<10) {
+    			isExist = true;
+   				var n = Math.floor(Math.random()*30);
+    			for(var _i = 0; _i<tmpArr.length; _i++){
+        			if(tmpArr[_i]==n){
+            			isExist = false;
+        			}
+    			}
+    			if(isExist){
+       				tmpArr.push(n);
+                  	questions.push(data.questions[n]);
+    			}
+			}
+        },
+        eventHandler : function(){
+            var self = this;
+          // 开始游戏
+            K('.J_start').on('click',function(){
+			var that = this;
+                User.login(function(){
+                    self.buildQuestion(opCount);
+                    K('.before-game').hide();
+                    K('.during-game').show();
+                    self.switchNumber(opCount+1);
+                });
+            });
+          if(S.UA.ie <= 6){
+            K('.before-game').on('click',function(){
+            	var that = this;
+                User.login(function(){
+                    self.buildQuestion(opCount);
+                    K('.before-game').hide();
+                    K('.during-game').show();
+                    self.switchNumber(opCount+1);
+                });
+            });
+          }
+          // 再来一遍，重新初始化游戏
+            K('.again').on('click',function(e){
+                var that = e.currentTarget;
+                self.initGame();
+            });
+          // 选择答案
+          	
+            K('.words').on('click',function(e){
+                var that = e.currentTarget;
+                var index = K(that).attr('index'),
+                    text = K(that).html();
+
+              //没有词就不操作
+              	if( text=='' || !isCanClick ) {
+              		return;
+              	}
+              
+                K(that).html('');
+                K(K('.answer')[clickCount]).html(text);
+                K(K('.answer')[clickCount]).attr('index',index);
+              // 没选完词，继续
+                if(clickCount < questions[opCount].num){
+                    clickCount++;
+                }
+              // 选完词，判断
+                if(clickCount == questions[opCount].num){
+                    var array1 = [];
+                    S.each(K('.answer'),function(item){
+                        array1.push(K(item).html());
+                    });
+                    var answer = array1.join('');
+                  if(answer == questions[opCount].answer){ // 答案正确
+
+                        if(opCount == 9){ // 答满10题，抽奖
+                            User.login(function(){
+                                self.lottery();
+                            })
+                        }else{ // 没有答满10题，继续
+                            opCount++;
+                            guessField = [];
+                            self.buildQuestion(opCount);
+                        }
+                        self.switchNumber(opCount+1);
+
+                  }else{ // 答案错误
+                        K('.answer').css('color','#d12f12');
+                    	isCanClick = false;
+                    	S.later(function(){
+                            S.each(K('.answer'),function(item){
+                              	if( K(item).html() ) {
+                              		K(K('.words')[(K(item).attr('index')*1)]).html(K(item).html());
+                              	}
+                                K(item).attr('index','');
+                                K(item).html('');
+                            });
+                            K('.answer').css('color','#fff');
+                    	isCanClick = true;	
+                    	}, 500);
+                    }
+                    clickCount = 0;
+                }
+
+            });
+          // 微博分享
+            K('#J_share').on('click',function(){
+                self.showShare(questions[opCount].pic);
+            });
+          // 取消选择的字
+            E.delegate('.during-game','click','.answer',function(e){
+                var that = e.currentTarget;
+                var index = K(that).attr('index'),
+                    text = K(that).html();
+                K(that).html('');
+                text && K(K('.words')[index]).html(text);
+                K(that).attr('index','');
+            });
+        },
+      // 切换题目号码
+        switchNumber : function(num){
+            K('#J_count').css('background-image','url('+numArr[num]+')');
+        },
+      // 构建游戏题目
+        buildQuestion : function(index){
+            var tid = questions[index].group,
+                tpic = questions[index].pic;
+            K('.q-title').css('background-image','url('+titleArr[tid-1]+')');
+            K('.q-pic').css('background-image','url('+tpic+')');
+            var qlist = '',glist = '';
+            for(var j = questions[index].num;j>0;j--){
+                qlist += '<li class="answer" index=""></li>';
+            }
+            K('.q-answer').html(qlist);
+            K('.q-answer').css('width',(30*questions[index].num)+'px');
+            var a = questions[index].answer.split('');
+
+            for(var h = 20 - a.length;h > 0; h--){
+                guessField.push(wordGroup[Math.floor(Math.random()*wordGroup.length)]);
+            }
+            var randomWords = guessField.concat(a).sort();
+            S.each(randomWords, function(item,index){
+                K(K('.words')[index]).html(item);
+            });
+        },
+      // 抽奖
+        lottery : function(){
+            var self = this;
+            var key = K('#J_key').val();
+            var url = 'http://sales.'+host+'/lottery/lottery.do';
+          	url += "?ua="+encodeURIComponent(getUA());
+          	//url += "?ua="+getUA();
+          	UA_Opt.Token=new Date().getTime()+":"+Math.random();
+          	UA_Opt.reload();
+            S.io({
+                type:'GET',
+                url:url,
+                data:{
+                    'ruleId':2190,
+                  //'ruleId':2371,
+                    'checkCode': key,
+                    '_input_charset':'utf-8',
+                    'time': 1394595009                },
+                jsonpCallback:'callback',
+                success:function (data) {
+                    self.updateLotteryState(data);
+                },
+                dataType:'jsonp'
+            });
+        },
+        updateLotteryState : function(d){
+            K('.during-game').hide();
+            if(d.isSuccess == 'T'){
+                K('.game-win').show();
+            }else{
+                K('.game-loose').show();
+            }
+        },
+        showShare : function(pic){
+            var sharecfg = {
+                "pic":pic,
+                "client_id":"179309",
+                "comment":"#十月十日卖萌节#我要拿iPhone 5C，游戏猜图卡壳玩不下去鸟，快来帮帮我！iPhone 5C快到我的碗里来~",
+                "title":"1010卖萌节",
+                "isShowFriend":false,
+                "type":"webpage",
+                "key":"http://www.taobao.com/go/act/childmemery.php"};
+            SNS.ui("share", sharecfg);
+
+        }
+    });
+
+    return Game;
+},{requires:["user"]});
+var data = {
+    "questions" : [
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T15h1WFoNdXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "大闹天宫",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1JviYFiFeXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "黑猫警长",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1q4WWFileXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "邋遢大王奇遇记",
+            "num" : 7
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T17rC1FdFXXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "葫芦兄弟",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1e2KGFkhgXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "喜羊羊与灰太狼",
+            "num" : 7
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1so5WFapeXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "阿凡提",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1xv9WFn0eXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "麦兜",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1LBWYFhtcXXcoPeYv-150-150.png",
+            "group" : 2,
+            "answer" : "鸟山明",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T16euWFldeXXcoPeYv-150-150.png",
+            "group" : 2,
+            "answer" : "手冢治虫",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T14muYFctdXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "七龙珠",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1t1CWFbteXXcoPeYv-150-150.png",
+            "group" : 2,
+            "answer" : "久保带人",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1UAyGFghiXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "月野兔",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1ZBeWFoheXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "樱木花道",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1d2aUFnRfXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "柯南",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1_xqYFbteXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "皮卡丘",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1UnuVFjlgXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "木之本樱",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1L3qVFe8fXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "乔巴",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1FrWWFklfXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "卡卡西",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1KquWFlxfXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "龙猫",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1s1SUFlhhXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "定春",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1kMWZFb4cXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "猫咪老师",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1.S9YFoXbXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "初音未来",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms02.alicdn.com/tps/i2/T1Ih5VFmlgXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "巴巴爸爸",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1YlKZFgtbXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "擎天柱",
+            "num" : 3
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1Pa1VFgVfXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "玩具总动员",
+            "num" : 5
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T1FXSWFkVcXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "冰河世纪",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1Kr5UFmxfXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "马达加斯加",
+            "num" : 5
+        },
+        {
+            "pic" : "http://gtms03.alicdn.com/tps/i3/T1NgWWFlNeXXcoPeYv-150-150.png",
+            "group" : 3,
+            "answer" : "瓦力",
+            "num" : 2
+        },
+        {
+            "pic" : "http://gtms04.alicdn.com/tps/i4/T17.yVFaphXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "功夫熊猫",
+            "num" : 4
+        },
+        {
+            "pic" : "http://gtms01.alicdn.com/tps/i1/T1Q_OWFgBeXXcoPeYv-150-150.png",
+            "group" : 1,
+            "answer" : "怪兽大学",
+            "num" : 4
+        }
+    ],
+    "words" : "你 金 州 参 加 翻 倍 夏 目 友 人 帐 绿 川 幸 妈 变 形 金 刚 福 克 斯 机 器 人 总 动 员 皮 克 斯 当 阿 拉 斯 尼 当 年 风 靡 动 漫 圈 子 魂 美 少 女 战 士 武 内 直 子 灌 篮 高 手 井 上 雄 彦 名 侦 探 宠 物 小 精 灵 摩 卡 海 贼 王 尾 田 荣 一 郎 宇 宙 肥 料 金 坷 垃 蕾 铁 壁 阿 集 想 象 希 尔 多 夫 展 会 试 水 灰 心 汲 取 经 验 迷 冯 绍 迪 美 国 圣 地 亚 童 木 死 神 火 影 忍 者 岸 本 蒙 吉 卜 力 宫 崎 骏 银 魂 空 知 英 秋 人 头 攒 动 明 星 云哥 肥 料 新 闻 家 伙 彰 显 史 诗 气 法 国 著 名 导 演 让 雅 克 阿 诺 执 质 响 峰 窦 骁 主 演 电 影 狼 古 进 行 紧 张 拍 摄 预 告 海 报 孤 狼 漫 天 雪 顶 峰 遥 望 远 方 极 具 苍 凉 图 腾 目 前 内"
+}
+KISSY.ready(function(S){
+    S.use("game",function(S,Game){
+        Game.init();
+    });
+});
+</script> 
+	</script>
+	</body>
+</html>
+
